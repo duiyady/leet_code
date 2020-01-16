@@ -17,29 +17,36 @@
 def nextPermutation(nums):
     n_nums = len(nums)
     posi = n_nums
-    while posi > 0:
-        for i in reversed(range(posi-1)):
-            if nums[i] < nums[i+1]:
-                for k in range(i+1, posi-1):
-                    if nums[k+1] < nums[i] or k+1 == posi:
-                        tmp = nums[k]
-                        nums[k] = nums[i]
-                        nums[i] = tmp
-                        break
-                j = i+1
-                k = posi-1
-                while j < k:
-                    tmp = nums[j]
-                    nums[j] = nums[k]
-                    nums[k] = tmp
-                    j += 1
-                    k -= 1
-                posi = i
-                break
-        posi = 0
+    flag = False
+    for i in reversed(range(posi-1)):
+        if nums[i] < nums[i+1]:
+            flag = True
+            for k in range(i+1, posi):
+                if k == posi-1 or nums[k+1] <= nums[i]:
+                    tmp = nums[k]
+                    nums[k] = nums[i]
+                    nums[i] = tmp
+                    break
+            j = i+1
+            k = posi-1
+            while j < k:
+                tmp = nums[j]
+                nums[j] = nums[k]
+                nums[k] = tmp
+                j += 1
+                k -= 1
+            break
+    if flag is False:
+        j = 0
+        k = posi - 1
+        while j < k:
+            tmp = nums[j]
+            nums[j] = nums[k]
+            nums[k] = tmp
+            j += 1
+            k -= 1
 
 if __name__ == '__main__':
-    x = [1,2,3]
+    x = [1,5,1]
     nextPermutation(x)
     print(x)
-                
