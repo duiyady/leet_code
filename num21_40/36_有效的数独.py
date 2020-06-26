@@ -2,8 +2,6 @@
 # @Time: 2020/6/21 10:52
 # @Author: duiya duiyady@163.com
 
-import numpy as np
-from collections import Counter
 """
 判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
 """
