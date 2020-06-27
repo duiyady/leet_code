@@ -52,7 +52,6 @@ def combinationSum(candidates, target):
                 stack.pop()
                 stack_index.pop()
                 pop = True
-
     return result
 
 
