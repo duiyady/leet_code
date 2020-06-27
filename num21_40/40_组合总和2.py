@@ -78,4 +78,4 @@ def combinationSum2(candidates, target):
 
 
 if __name__ == '__main__':
-    print(combinationSum2(candidates=[10,1,2,7,6,1,5], target = 8))
+    print(combinationSum2(candidates=[10, 1, 2, 7, 6, 1, 5], target=8))
