@@ -2,48 +2,27 @@
 # @Time: 2020/6/30 8:48
 # @Author: duiya duiyady@163.com
 
-def jump(nums):
-    count = len(nums)
-    min_step = [count+1]*count
-    for i in range(1, count+1):
-        if nums[-i] != 0:
-            min_step[-i] = 1
-            if nums[-i] < i-1:
-                min_pts = i-1
-                if min_step[-min_pts] != 1:
-                    for j in range(i-nums[-i], i-1):
-                        if min_step[-j] < min_step[-min_pts]:
-                            min_pts = j
-                            if min_step[-min_pts] == 1:
-                                break
-                min_step[-i] += min_step[-min_pts]
-    if min_step[0] < count:
-        return min_step[0]
-    else:
-        return 0
 
-def ju(nums):
-    count = len(nums)
-    min_step = [1] * count
-    for i in range(1, count + 1):
-        if nums[-i] != 0:
-            if nums[-i] < i - 1:
-                min_pts = i - 1
-                if min_step[-min_pts] != 1:
-                    for j in range(i - nums[-i], i - 1):
-                        if min_step[-j] < min_step[-min_pts]:
-                            min_pts = j
-                            if min_step[-min_pts] == 1:
-                                break
-                min_step[-i] += min_step[-min_pts]
+def jump(nums):
+    count_step = 0
+    i = 0
+    while i < len(nums)-1:
+        can_step = nums[i]
+        if can_step == 0:
+            return 0
+        next_i = i+1
+        if i + nums[i] >= len(nums)-1:
+            next_i = len(nums)
         else:
-            min_step[-i] = count+1
-    if min_step[0] < count:
-        return min_step[0]
-    else:
-        return 0
+            for j in range(i+2, i + nums[i]+1):
+                if j+nums[j] > next_i+nums[next_i]:
+                    next_i = j
+        count_step += 1
+        i = next_i
+    return count_step
+
 
 
 if __name__ == '__main__':
-    print(ju([0]))
+    print(jump([3,2,1,1]))
 
