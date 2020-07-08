@@ -11,20 +11,15 @@
 
 
 def lengthOfLastWord(s):
-    now = 0
-    start = -1
-    word = False
-    for i in range(len(s)):
-        if s[i] == " ":
-            if word is True:
-                now = i - start - 1
-            start = i
-            word = False
-        else:
-            word = True
-    if word is True:
-        now = len(s) - start - 1
-    return now
+    end = len(s) - 1
+    while end >= 0 and s[end] == " ":
+        end -= 1
+    if end < 0:
+        return 0
+    start = end
+    while start >= 0 and s[start] != " ":
+        start -= 1
+    return end-start
 
 
 if __name__ == '__main__':
