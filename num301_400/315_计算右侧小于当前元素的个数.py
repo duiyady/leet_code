@@ -15,42 +15,22 @@
 1 的右侧有 0 个更小的元素.
 """
 
+# 时间复杂度太高
 def countSmaller(nums):
+    if len(nums) == 0:
+        return
+    tmp_nums = sorted(set(nums))
+    tmp_count = [0] * len(tmp_nums)
     result = [0]*len(nums)
-    tmp_nums = [0]*len(nums)  # 左边出现的数的排序
-    nums_count = [0]*len(nums)  # 左边的数出现了几个
-    tmp_count = 1  # 有几个不同的数
-    tmp_nums[0] = nums[-1]
-    nums_count[0] = 1
+    index = {tmp_nums[i]: i for i in range(len(tmp_nums))}
     for i in reversed(range(len(nums))):
-        flag = False
-        count = 0
-        for j in range(tmp_count):
-            if nums[i] == tmp_nums[j]:
-                result[i] = count
-                nums_count[j] += 1
-                flag = True
-                break
-            elif nums[i] > tmp_nums[j]:
-                result[i] = count + nums_count[j]
-                tmp_nums.insert(j, nums[i])
-                nums_count.insert(j, 1)
-                tmp_count += 1
-                flag = True
-                break
-            else:
-                count += nums_count[j]
-        if flag == False:
-            result[i] = count
-            tmp_nums.insert(tmp_count, nums[i])
-            nums_count.insert(tmp_count, 1)
-            tmp_count += 1
-    print(result)
+        result[i] = sum(tmp_count[: index[nums[i]]])
+        tmp_count[index[nums[i]]] += 1
     return result
 
 
 if __name__ == '__main__':
-    print(countSmaller([5,2,6,1]))
+    print(countSmaller([5,2,6,1, 0]))
 
 
 
