@@ -14,10 +14,12 @@ def numTrees(n):
     result[1] = 1
     for i in range(2, n+1):
         count = 0
-        for j in range(1, i+1):
-            count = count + (result[j-1]*result[i-j])
+        for j in range(1, i//2 + 1):
+            count = count + 2*(result[j-1]*result[i-j])
+        if i%2 == 1:
+            count += result[i//2]*result[i//2]
         result[i] = count
     return result[n]
 
 if __name__ == '__main__':
-    print(numTrees(3))
+    print(numTrees(100))
