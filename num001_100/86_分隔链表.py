@@ -55,6 +55,3 @@ def partition(head, x):
     if return_head is None:
         return_head = head
     return return_head
-
-
-
