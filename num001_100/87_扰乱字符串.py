@@ -66,6 +66,18 @@ def isScramble(s1, s2):
     return flag_array[0][0][s_len]
 
 
+def isScramble2(s1, s2):
+    if s1 == s2:
+        return True
+    if sorted(s1) != sorted(s2):
+        return False
+
+    for i in range(1, len(s1)):
+        if isScramble(s1[:i], s2[:i]) and isScramble(s1[i:], s2[i:]) or \
+                (isScramble(s1[:i], s2[-i:]) and isScramble(s1[i:], s2[:-i])):
+            return True
+    return False
+
 
 
 
