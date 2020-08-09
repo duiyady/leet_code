@@ -49,4 +49,45 @@ def recoverTree(root):
     """
     Do not return anything, modify root in-place instead.
     """
-    
+    tmp = []
+
+    def zxbl(root):
+        if root:
+            zxbl(root.left)
+            tmp.append(root)
+            zxbl(root.right)
+    zxbl(root)
+    change1 = None
+    change2 = tmp[-1]
+    for i in range(1, len(tmp)):
+        if tmp[i].val < tmp[i-1].val:
+            if change1 is None:
+                change1 = tmp[i-1]
+                change2 = tmp[i]
+            else:
+                change2 = tmp[i]
+
+    change1.val, change2.val = change2.val, change1.val
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    root1 = TreeNode(1)
+    root2 = TreeNode(2)
+    root3 = TreeNode(3)
+    root4 = TreeNode(4)
+    root5 = TreeNode(5)
+    root6 = TreeNode(6)
+    root7 = TreeNode(7)
+    root8 = TreeNode(8)
+    root1.left = root2
+    root1.right = root3
+    root2.left = root4
+    root2.right = root5
+    root3.left = root6
+    root3.right = root7
+    recoverTree(root1)
