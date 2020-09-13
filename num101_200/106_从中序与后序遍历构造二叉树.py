@@ -28,7 +28,25 @@ class TreeNode:
 
 
 def buildTree(self, inorder, postorder):
-    pass
+    if len(inorder) == 0:
+        return None
+    index_dict = {}
+    for i in range(len(inorder)):
+        index_dict[inorder[i]] = i
+    root = TreeNode(postorder[-1])
+    stack = [root]
+    for i in reversed(range(len(postorder)-1)):
+        if index_dict[postorder[i]] > index_dict[stack[-1].val]:
+            tmp = TreeNode(postorder[i])
+            stack[-1].right = tmp
+            stack.append(tmp)
+        else:
+            while stack and index_dict[stack[-1].val] > index_dict[postorder[i]]:
+                top = stack.pop()
+            tmp = TreeNode(postorder[i])
+            top.left = tmp
+            stack.append(tmp)
+    return root
 
 
 if __name__ == '__main__':
