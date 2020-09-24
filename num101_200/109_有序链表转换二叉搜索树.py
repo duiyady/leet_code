@@ -68,6 +68,6 @@ if __name__ == '__main__':
     A3.next = A4
     A4.next = A5
     root = sortedListToBST(A1)
-    show(root)
+
 
 
