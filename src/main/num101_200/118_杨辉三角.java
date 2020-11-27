@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Solution {
+class Solution_118 {
     public static List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result = new ArrayList<>(numRows);
         for(int i = 0; i < numRows; i++){
