@@ -24,12 +24,32 @@
 
 class Solution_123 {
     public static int maxProfit(int[] prices) {
+        int count = prices.length;
+        int buy1[] = new int[count];
+        int buy2[] = new int[count];
+        int nowmin = prices[0];
+        int nowmax = prices[count - 1];
 
+        for(int i = 1; i < count; i++){
+            buy1[i] = Math.max(prices[i] - nowmin, buy1[(i-1)%count]);
+            if (prices[i] < nowmin){
+                nowmin = prices[i];
+            }
 
-        return 0;
+            buy2[count-i-1] = Math.max(nowmax - prices[count-i-1], buy2[count-i]);
+            if(prices[count-i-1] > nowmax){
+                nowmax = prices[count-i-1];
+            }
+        }
+        int result = 0;
+        for(int i = 0; i < count; i++){
+            result = Math.max(result, buy1[i]+buy2[i]);
+        }
+        return result;
     }
 
     public static void main(String[] args) {
-
+        int[] tmp = {3,3,5,0,0,3,1,4};
+        System.out.println(maxProfit(tmp));
     }
 }
