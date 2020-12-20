@@ -41,57 +41,29 @@ import java.util.List;
 //  }
 
 class Solution_129 {
-    public static int sumNumbers(TreeNode root) {
+    int sum = 0;
+    public int sumNumbers(TreeNode root) {
         if(root == null){
             return 0;
         }
-        int now = 0;
-        int result = 0;
-        List<TreeNode> list = new ArrayList<>();
-        List<Integer> state = new ArrayList<>();
-        list.add(root);
-        state.add(0);
-        now = root.val;
-        while (list.size() > 0){
-            int s = state.get(state.size()-1);
-            TreeNode node = list.get(list.size() - 1);
-            if(s == 0){
-                if(node.left != null){
-                    state.set(state.size()-1, 1);
-                    list.add(node.left);
-                    now = now*10 + node.left.val;
-                    state.add(0);
-                }else if(node.right != null){
-                    state.set(state.size()-1, 2);
-                    list.add(node.right);
-                    now = now*10 + node.right.val;
-                    state.add(0);
-                }else {
-                    result += now;
-                    now = (now - node.val)/10;
-                    list.remove(list.size() - 1);
-                    state.remove(state.size() - 1);
-                }
-            }else if(s == 1){
-                if(node.right != null){
-                    state.set(state.size()-1, 2);
-                    list.add(node.right);
-                    now = now*10 + node.right.val;
-                    state.add(0);
-                }else {
-                    now = (now - node.val)/10;
-                    list.remove(list.size() - 1);
-                    state.remove(state.size() - 1);
-                }
-            }else {
-                now = (now - node.val)/10;
-                list.remove(list.size() - 1);
-                state.remove(state.size() - 1);
-            }
+        coss(root, 0);
+        return sum;
+    }
+
+    public void coss(TreeNode node, int nowValue){
+        int newValue = node.val + nowValue*10;
+        int flag = 0;
+        if(node.left != null){
+            coss(node.left, newValue);
+            flag = 1;
         }
-
-
-        return result;
+        if(node.right != null){
+            coss(node.right, newValue);
+            flag = 1;
+        }
+        if(flag == 0){
+            sum += newValue;
+        }
     }
 
     public static void main(String[] args) {
@@ -100,7 +72,7 @@ class Solution_129 {
         TreeNode c = new TreeNode(3);
         a.left = b;
         a.right = c;
-        System.out.println(sumNumbers(a));
+        System.out.println(new Solution_129().sumNumbers(a));
 
 
     }
