@@ -17,7 +17,7 @@
  第三个孩子只得到 1 颗糖果，这已满足上述两个条件。
  */
 
-class Solution_136 {
+class Solution_135 {
     public int candy(int[] ratings) {
         int n = ratings.length;
         int[] left = new int[n];
