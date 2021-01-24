@@ -1,9 +1,7 @@
 package num001_100;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  给定一个整数 n，生成所有由 1 ... n 为节点所组成的 二叉搜索树 。
@@ -30,50 +28,50 @@ import java.util.Map;
 
 class TreeNode_95 {
      int val;
-     TreeNode left;
-     TreeNode right;
+     TreeNode_95 left;
+     TreeNode_95 right;
      TreeNode_95() {}
      TreeNode_95(int val) { this.val = val; }
-     TreeNode_95(int val, TreeNode left, TreeNode right) {
+     TreeNode_95(int val, TreeNode_95 left, TreeNode_95 right) {
          this.val = val;
          this.left = left;
          this.right = right;
       }
   }
 
-public class Solution_95 {
-    public List<TreeNode> generateTrees(int n) {
+class Solution_95 {
+    public List<TreeNode_95> generateTrees(int n) {
         return find(1, n);
 
     }
-    public List<TreeNode> find(int start, int end){
-        List<TreeNode> result = new ArrayList<>();
+    public List<TreeNode_95> find(int start, int end){
+        List<TreeNode_95> result = new ArrayList<>();
         if(start == end){
-            TreeNode tmp = new TreeNode_95(start);
+            TreeNode_95 tmp = new TreeNode_95(start);
             result.add(tmp);
             return result;
         }
         for(int headVal=start; headVal <= end; headVal++){
             if(headVal == start){
-                List<TreeNode> rightListHead = find(headVal+1, end);
-                for(TreeNode val : rightListHead){
-                    TreeNode tmp = new TreeNode_95(headVal);
+                List<TreeNode_95> rightListHead = find(headVal+1, end);
+                for(TreeNode_95 val : rightListHead){
+                    TreeNode_95 tmp = new TreeNode_95(headVal);
                     tmp.right = val;
                     result.add(tmp);
                 }
             }else if(headVal == end){
-                List<TreeNode> leftListHead = find(start, headVal-1);
-                for(TreeNode val : leftListHead){
-                    TreeNode tmp = new TreeNode_95(headVal);
+                List<TreeNode_95> leftListHead = find(start, headVal-1);
+                for(TreeNode_95 val : leftListHead){
+                    TreeNode_95 tmp = new TreeNode_95(headVal);
                     tmp.left = val;
                     result.add(tmp);
                 }
             }else {
-                List<TreeNode> leftListHead = find(start, headVal-1);
-                List<TreeNode> rightListHead = find(headVal+1, end);
-                for(TreeNode left : leftListHead){
-                    for(TreeNode right : rightListHead){
-                        TreeNode tmp = new TreeNode_95(headVal);
+                List<TreeNode_95> leftListHead = find(start, headVal-1);
+                List<TreeNode_95> rightListHead = find(headVal+1, end);
+                for(TreeNode_95 left : leftListHead){
+                    for(TreeNode_95 right : rightListHead){
+                        TreeNode_95 tmp = new TreeNode_95(headVal);
                         tmp.left = left;
                         tmp.right = right;
                         result.add(tmp);
