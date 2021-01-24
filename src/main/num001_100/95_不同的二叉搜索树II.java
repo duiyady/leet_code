@@ -28,63 +28,62 @@ import java.util.Map;
  */
 
 
-class TreeNode {
+class TreeNode_95 {
      int val;
      TreeNode left;
      TreeNode right;
-     TreeNode() {}
-     TreeNode(int val) { this.val = val; }
-     TreeNode(int val, TreeNode left, TreeNode right) {
+     TreeNode_95() {}
+     TreeNode_95(int val) { this.val = val; }
+     TreeNode_95(int val, TreeNode left, TreeNode right) {
          this.val = val;
          this.left = left;
          this.right = right;
       }
   }
 
-class Solution_95 {
+public class Solution_95 {
     public List<TreeNode> generateTrees(int n) {
-        List<TreeNode> result = new ArrayList<>();
-        Map<Integer, List<TreeNode>> map = new HashMap<>();
-        TreeNode tmp = new TreeNode(1);
-        ArrayList<TreeNode> tmpList = new ArrayList<>();
-        tmpList.add(tmp);
-        map.put(0, new ArrayList<>());
-        map.put(1, tmpList);
-        for (int i = 2; i < n; i++) {
-            tmpList = new ArrayList<>();
-            for(int head = 1; head <= i; head++){
+        return find(1, n);
 
-                int right_start = 1;
-                int right_end = head-1;
-                int left_start = head+1;
-                int left_end = i;
-                //只有左边
-                if(right_end < right_start && left_end >= left_start){
-                    List<TreeNode> per = map.get(left_end-left_start+1);
-                    for(int num=0; num < per.size(); num++){
-                        tmp = new TreeNode(head);
-                        tmp.right = null;
-                        tmp.left = this.copyNode(per.get(num));
-                        tmpList.add(tmp, 0);
+    }
+    public List<TreeNode> find(int start, int end){
+        List<TreeNode> result = new ArrayList<>();
+        if(start == end){
+            TreeNode tmp = new TreeNode_95(start);
+            result.add(tmp);
+            return result;
+        }
+        for(int headVal=start; headVal <= end; headVal++){
+            if(headVal == start){
+                List<TreeNode> rightListHead = find(headVal+1, end);
+                for(TreeNode val : rightListHead){
+                    TreeNode tmp = new TreeNode_95(headVal);
+                    tmp.right = val;
+                    result.add(tmp);
+                }
+            }else if(headVal == end){
+                List<TreeNode> leftListHead = find(start, headVal-1);
+                for(TreeNode val : leftListHead){
+                    TreeNode tmp = new TreeNode_95(headVal);
+                    tmp.left = val;
+                    result.add(tmp);
+                }
+            }else {
+                List<TreeNode> leftListHead = find(start, headVal-1);
+                List<TreeNode> rightListHead = find(headVal+1, end);
+                for(TreeNode left : leftListHead){
+                    for(TreeNode right : rightListHead){
+                        TreeNode tmp = new TreeNode_95(headVal);
+                        tmp.left = left;
+                        tmp.right = right;
+                        result.add(tmp);
                     }
                 }
-                //只有右边
-                else if(right_end >= right_start && left_end < left_start){
-
-                }
-                // 两边
-                else if(right_end >= right_start && left_end >= left_start){
-
-                }
             }
-            map.put(i, tmpList);
         }
-        return map.get(n);
+        return result;
     }
 
-    public TreeNode copyNode(TreeNode node, int addValue){
-
-    }
 
     public static void main(String[] args) {
         Solution_95 base = new Solution_95();
